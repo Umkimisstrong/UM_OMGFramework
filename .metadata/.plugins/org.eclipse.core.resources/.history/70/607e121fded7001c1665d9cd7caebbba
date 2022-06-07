@@ -1,0 +1,13 @@
+/*
+	CalculatorBeforeAdvice.java
+	- Before Advice 구성
+*/
+
+package com.test.spr;
+
+import org.springframework.aop.MethodBeforeAdvice;
+
+public class CalculatorBeforeAdvice implements MethodBeforeAdvice
+{
+
+}

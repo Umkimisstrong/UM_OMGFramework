@@ -1,0 +1,16 @@
+/*
+	CalculatorAfterThrowing.java
+	- After Throwing Advice 구성
+*/
+
+package com.test.spr;
+
+import org.springframework.aop.ThrowsAdvice;
+
+public class CalculatorAfterThrowing implements ThrowsAdvice
+{
+
+	
+	
+	
+}

@@ -1,0 +1,299 @@
+■■■ AOP(Aspect Oriented Programming) ■■■
+
+※ 공통의 관심 사항을 적용해서 발생하는 의존 관계의 복잡성과
+   코드 중복을 해소해 주는 프로그래밍 기법.
+
+○ AOP 개념
+   주 업무를 실행할 때 보조적인 업무(주 업무 실행 시간 체크, 로그 기록 등)가
+   진행되어야 한다.
+   만약, 주 업무가 여러 개이고, 동일한 보조 업무의 수행이 진행되어야 한다면
+   보조 업무 부분은 중복된 코드가 될 수 밖에 없다.
+   이런 중복 요소를 제거하고 보조 업무를 보다 독립적인 방법으로 실행할 수 있도록
+   구성하는 것을 AOP 기법이라고 한다.
+
+○ AOP 관련 주요 용어
+   
+   - 보조 업무(cross-cutting concern)
+     주 업무 실행 시 발생하는 보조적인 업무.
+     주 업무와 분리 및 결합이 쉽게 이루어질 수 있도록 만들어야 한다.
+   
+   - 주 업무(core concern)
+     핵심적인 기능을 수행하는 부분.
+     사용자의 요청에 대한 기본적인 수행 및 결과 반환을 해야한다.
+   
+   - Advice
+     언제 어떤 공통관심기능(보조업무, cross-cutting concern) 을 적용할 지 결정하는 방법
+     Before Advice, After Advice, Around Advice 등이 있다.
+     ㆍBefore Advice
+       보조 업무가 주 업무 실행 전에 수행되는 경우
+     ㆍAfter Advice
+       보조 업무가 주 업무 실행 후에 수행되는 경우
+     ㆍAround Advice
+       보조 업무가 주 업무 실행 전과 후에 수행되는 경우
+
+   - proxy
+     주 업무를 실행하는 객체와 동일한 모양을 가진 가짜 객체.
+     사용자가 직접 주 업무를 실행하는 객체를 찾아가는 것이 아니라,
+     proxy 를 찾아가도록 지정하게 된다.
+  
+     proxy 내부에서 보조 업무를 실행한 후, 주 업무를 호출하도록 하면
+     외부에서 볼 때 주 업무를 실행하는 것과 같은 결과가 나오도록 할 수 있다.
+
+   - joinpoint
+     proxy 내부에서 주 업무를 호출하는 경우에 특정 지점에만 호출되도록 할 수 있다.
+  
+   - weaving
+     advice 를 주 업무에 적용하는 과정을  부르는 명칭.
+
+   - aspect
+     여러 주 업무 객체에 공통적으로 적용되는 공통 관심 사항(보조업무)을
+     aspect 라고 한다.
+
+○ AOP 진행 순서
+   
+   사용자   프록시             보조업무                주업무 
+   client   proxy        cross-cutting concern   core-concern
+   ○ ---------------------------------------------- ○
+  
+   ●        1    > ●
+                   ●         2         >●
+                   ●                    3              >●
+                   ●       <             4              ●
+                   ●         5         >●
+   ●<        6     ●
+                                 
+
+   1. 사용자는 proxy 객체에 접근
+      사용자 입장에선 proxy 객체가 주 업무 객체와 동일하게 생각
+   2. proxy 객체 내부에서 보조업무 진행
+      주업무 실행 전 수행되는 보조업무 - 비포 어드바, 어라운드 어드바
+   3. proxy 객체 내부에서 주업무 호출
+      주업무 진행
+   4. 결과값 리턴
+   5. proxy 개체 내부에서 보조업무 진행
+      주업무 실행 후 애프터 어드바 어라운드 어드바
+   6. 결과값 사요자에게 리턴
+  
+=====================================================
+
+■■■ AOP 개념 실습 01 (기법 적용 전)■■■
+
+○ 실습 성격 및 주요사항
+1. 콘솔프로젝트
+2. 기본적 산술연산 처리
+3. 보조업무 (시간측정, 로그기록)을 적용실습
+4. JavaProject 생성 SpringPrj05
+5. 로그 및 스톱웣 ㅣ기능 사용 관련 jar 파일 등록해서 실습
+
+파일1 : docs : core
+    2 : dependencies - logging
+
+물리적 파일 구성
+1.  Calculator.java         Interface
+2.  CalculatorImpl.java
+3.  Main.java
+ 
+
+=====================================================
+
+■■■ AOP 개념 실습 02 (기법 적용 전)■■■
+
+○ 실습 성격 및 주요사항
+1. 콘솔프로젝트
+2. 기본적 산술연산 처리
+3. 보조업무 (시간측정, 로그기록)을 적용실습
+4. JavaProject 생성 SpringPrj06
+5. 로그 및 스톱치 기능 사용 관련 jar 파일 등록해서 실습
+
+
+물리적 파일 구성
+1.  Calculator.java         Interface
+2.  CalculatorImpl.java     주 업무
+3.  Main.java3.             프록시 호출, main() 메소드 포함된 테스트 클래스
+4.  CalculatorProxy.java    보조업무 실시 주업무 호출  ★
+
+
+=====================================================
+
+■■■ AOP 개념 실습 03 (기법 적용)■■■
+
+○ 실습 성격 및 주요사항
+1. 콘솔프로젝트
+2. 기본적 산술연산 처리
+3. Spring AOP 기법을 사용하여 보조업무 (시간측정, 로그기록)을 적용실습
+4. JavaProject 생성 SpringPrj07
+5. 로그 및 스톱워치 기능 사용 관련 jar 파일 등록해서 실습
+   + Spring AOP 기법을 적용하기 위한 jar 파일
+
+○ 등록해야 할 jar 파일
+  - 경로 1 : C:\s-f-3.0.2-with-docs\spring-framework-3.0.2.RELEASE\dist
+     ▼
+    파일 1 : org.springframework.asm-3.0.2.RELEASE.jar
+         2 : org.springframework.beans-3.0.2.RELEASE.jar
+         3 : org.springframework.context-3.0.2.RELEASE.jar 
+         4 : org.springframework.core-3.0.2.RELEASE.jar
+         5 : org.springframework.expression-3.0.2.RELEASE.jar
+         6 : org.springframework.aop-3.0.2.RELEASE.jar
+
+  - 경로 2 : C:\s-f-3.0.2-dependencies\org.apache.commons\com.springsource.org.apache.commons.logging\1.1.1
+     ▼
+    파일 7 : com.springsource.org.apache.commons.logging-1.1.1.jar
+
+  - 경로 3 : C:\s-f-3.0.2-dependencies\org.aopalliance\com.springsource.org.aopalliance\1.0.0
+     ▼
+    파일 8 : com.springsource.org.aopalliance-1.0.0.jar
+
+
+물리적 파일 구성
+1.  Calculator.java          Interface          ( 기존 소스코드 그대로 활용 )
+2.  CalculatorImpl.java      클래스. 주 업무    ( 기존 소스코드 그대로 활용 )
+3.  CalculatorAspect.java    보조업무 클래스, 보조업무 실행 및 주 업무 호출
+4.  Main.java                main() 메소드가 포함된 테스트 클래스
+5.  config.xml               스프링 환경 설정 파일( 객체 생성 및 DI 설정 )
+
+
+=====================================================
+
+■■■ AOP 개념 실습 04 (기법 적용)■■■
+
+※ AOP Advice
+   
+   Advice - 언제 어떤 공통 관심사항(보조 업무, cross-cutting concern) 을
+            적용할지 결정하는 방법.
+            Before Advice, After Advice, Around Advice 등이 있다.
+   Before Advice - 보조 업무가 주 업무 실행 전에 수행되는 경우.
+   After Advice - 보조 업무가 주 업무 실행 후에 수행되는 경우.
+   Around Advice - 보조 업무가 주 업무 실행 전과 후에 수행되는 경우.
+
+○ 실습 성격 및 주요 사항
+   1. 콘솔 프로젝트
+   2. 기본적인 산술 연산 처리
+   3. Java Project 생성 → SpringPrj08
+   4. 로그 및 스톱워치 기능 사용 위해 관련 jar 파일 등록
+   5. 추가로 스프링 AOP 기법을 적용하기 위한 jar 파일 등록
+
+
+○ 등록해야 할 jar 파일
+  - 경로 1 : C:\s-f-3.0.2-with-docs\spring-framework-3.0.2.RELEASE\dist
+     ▼
+    파일 1 : org.springframework.asm-3.0.2.RELEASE.jar
+         2 : org.springframework.beans-3.0.2.RELEASE.jar
+         3 : org.springframework.context-3.0.2.RELEASE.jar 
+         4 : org.springframework.core-3.0.2.RELEASE.jar
+         5 : org.springframework.expression-3.0.2.RELEASE.jar
+         6 : org.springframework.aop-3.0.2.RELEASE.jar
+
+  - 경로 2 : C:\s-f-3.0.2-dependencies\org.apache.commons\com.springsource.org.apache.commons.logging\1.1.1
+     ▼
+    파일 7 : com.springsource.org.apache.commons.logging-1.1.1.jar
+
+  - 경로 3 : C:\s-f-3.0.2-dependencies\org.aopalliance\com.springsource.org.aopalliance\1.0.0
+     ▼
+    파일 8 : com.springsource.org.aopalliance-1.0.0.jar
+
+
+
+○ 물리적 파일 구성
+1.  Calculator.java          	     Interface          ( 기존 소스코드 그대로 활용 )
+2.  CalculatorImpl.java      	     클래스. 주 업무    ( 기존 소스코드 그대로 활용 )
+3.  CalculatorAspect.java	     보조업무 클래스, 보조업무 실행 및 주 업무 호출
+4.  Main.java         	       	     main() 메소드가 포함된 테스트 클래스
+5.  config.xml          	     스프링 환경 설정 파일( 객체 생성 및 DI 설정 )
+6.  CalculatorBeforeAdvice.java      추가. BeforeAdvice
+
+
+
+=====================================================
+
+■■■ AOP 개념 실습 05 (기법 적용)■■■
+
+※ AOP Advice
+   
+   Advice - 언제 어떤 공통 관심사항(보조 업무, cross-cutting concern) 을
+            적용할지 결정하는 방법.
+            Before Advice, After Advice, Around Advice 등이 있다.
+   Before Advice - 보조 업무가 주 업무 실행 전에 수행되는 경우.
+   After Advice - 보조 업무가 주 업무 실행 후에 수행되는 경우.
+   Around Advice - 보조 업무가 주 업무 실행 전과 후에 수행되는 경우.
+
+○ 실습 성격 및 주요 사항
+   1. 콘솔 프로젝트
+   2. 기본적인 산술 연산 처리
+   3. Java Project 생성 → SpringPrj09
+   4. 로그 및 스톱워치 기능 사용 위해 관련 jar 파일 등록
+   5. 추가로 스프링 AOP 기법을 적용하기 위한 jar 파일 등록
+
+
+○ 등록해야 할 jar 파일
+  - 경로 1 : C:\s-f-3.0.2-with-docs\spring-framework-3.0.2.RELEASE\dist
+     ▼
+    파일 1 : org.springframework.asm-3.0.2.RELEASE.jar
+         2 : org.springframework.beans-3.0.2.RELEASE.jar
+         3 : org.springframework.context-3.0.2.RELEASE.jar 
+         4 : org.springframework.core-3.0.2.RELEASE.jar
+         5 : org.springframework.expression-3.0.2.RELEASE.jar
+         6 : org.springframework.aop-3.0.2.RELEASE.jar
+
+  - 경로 2 : C:\s-f-3.0.2-dependencies\org.apache.commons\com.springsource.org.apache.commons.logging\1.1.1
+     ▼
+    파일 7 : com.springsource.org.apache.commons.logging-1.1.1.jar
+
+  - 경로 3 : C:\s-f-3.0.2-dependencies\org.aopalliance\com.springsource.org.aopalliance\1.0.0
+     ▼
+    파일 8 : com.springsource.org.aopalliance-1.0.0.jar
+
+
+
+○ 물리적 파일 구성
+1.  Calculator.java          	     Interface          ( 기존 소스코드 그대로 활용 )
+2.  CalculatorImpl.java      	     클래스. 주 업무    ( 기존 소스코드 그대로 활용 )
+3.  CalculatorAspect.java	     보조업무 클래스, 보조업무 실행 및 주 업무 호출
+4.  Main.java         	       	     main() 메소드가 포함된 테스트 클래스
+5.  config.xml          	     스프링 환경 설정 파일( 객체 생성 및 DI 설정 )
+6.  CalculatorBeforeAdvice.java      BeforeAdvice
+
+7. CalculatorAfterThrowing.java        추가.After Throwing Advice.  	▶ 주업무 처리 이후 예외 발생시 실행되는 보조업무
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+
+
+
+

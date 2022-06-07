@@ -1,0 +1,24 @@
+/*
+	OracleDAO.java
+	- DAO 역할
+	- MssqlDAO 와 설정만 다르게 연결하여 실습 진행
+	  → MSSQL 서버가 구축되어 있지 않기 때문에... 
+*/
+
+package com.test.spr;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class OracleDAO
+{
+	public List<MemberDTO> list()
+	{
+		List<MemberDTO> result = new ArrayList<MemberDTO>();
+		
+		// 데이터베이스 연결
+		
+		return result;
+		
+	}
+}

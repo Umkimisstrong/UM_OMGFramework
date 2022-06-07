@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.test.spr.RecordViewImpl"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.sql.Connection"/>
+<fullyQualifiedTypeName name="java.sql.DriverManager"/>
+<fullyQualifiedTypeName name="java.sql.Statement"/>
+<fullyQualifiedTypeName name="java.sql.ResultSet"/>
+<fullyQualifiedTypeName name="com.test.spr.MemberDTO"/>
+<fullyQualifiedTypeName name="com.test.spr.MemberList"/>
+<fullyQualifiedTypeName name="com.test.spr.MssqlDAO"/>
+<fullyQualifiedTypeName name="org.aopalliance.intercept.MethodInterceptor"/>
+<fullyQualifiedTypeName name="org.springframework.util.StopWatch"/>
+<fullyQualifiedTypeName name="org.springframework.aop.framework.ProxyFactoryBean"/>
+<fullyQualifiedTypeName name="org.springframework.context.ApplicationContext"/>
+<fullyQualifiedTypeName name="org.springframework.context.support.ClassPathXmlApplicationContext"/>
+<fullyQualifiedTypeName name="com.test.spr.Calculator"/>
+<fullyQualifiedTypeName name="org.springframework.aop.MethodBeforeAdvice"/>
+<fullyQualifiedTypeName name="org.springframework.aop.AfterAdvice"/>
+<fullyQualifiedTypeName name="org.springframework.aop.ThrowsAdvice"/>
+<fullyQualifiedTypeName name="org.apache.commons.logging.Log"/>
+<fullyQualifiedTypeName name="org.apache.commons.logging.LogFactory"/>
+<fullyQualifiedTypeName name="java.lang.IllegalArgumentException"/>
+</qualifiedTypeNameHistroy>

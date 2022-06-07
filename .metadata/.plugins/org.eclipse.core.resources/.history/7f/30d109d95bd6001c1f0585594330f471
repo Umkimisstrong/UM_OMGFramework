@@ -1,0 +1,17 @@
+/*
+	MemberDTO.java
+	- TBL_MEMBERLIST 테이블 레코드 참조
+*/
+
+package com.test.spr;
+
+public class MemberDTO
+{
+	// 주요 속성 구성 → TBL_MEMBERLIST 테이블 레코드 형식을 따른다.
+	private String id, pw, name, tel, email;
+	
+	
+	
+	
+
+}

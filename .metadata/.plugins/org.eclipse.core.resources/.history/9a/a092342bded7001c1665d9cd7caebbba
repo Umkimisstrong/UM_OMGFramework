@@ -1,0 +1,22 @@
+/*
+	CalculatorBeforeAdvice.java
+	- Before Advice 구성
+*/
+
+package com.test.spr;
+
+import java.lang.reflect.Method;
+
+import org.springframework.aop.MethodBeforeAdvice;
+
+public class CalculatorBeforeAdvice implements MethodBeforeAdvice
+{
+	// MethodBeforeAdvice 인터페이스를 구현하는 클래스, 오버라이딩
+	@Override
+	public void before(Method arg0, Object[] arg1, Object arg2) throws Throwable
+	{
+		// TODO Auto-generated method stub
+		
+	}
+	
+}
